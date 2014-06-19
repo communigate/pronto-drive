@@ -12,7 +12,8 @@
     <script language="javascript"  type="text/javascript" src="/SkinFiles//ProntoDrive/mootools.js" ></script>
     <script language="javascript"  type="text/javascript" src="/SkinFiles//ProntoDrive/mootools-more.js" ></script>
     <script language="javascript"  type="text/javascript" src="/SkinFiles//ProntoDrive/cerabox.min.js" ></script>
-    <script language="javascript"  type="text/javascript" src="/SkinFiles//ProntoDrive/share.js" ></script>
+    <!-- <script language="javascript"  type="text/javascript" src="/SkinFiles//ProntoDrive/share.js" ></script> -->
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
     <meta name="HandheldFriendly" content="true"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2, user-scalable=yes"/>
   </head>
@@ -22,9 +23,18 @@
 	<h1>Pronto!Drive</h1>
       </header>
       <section class="main" id="mainSection">
-	<form method="POST" id="updateForm" action="">
-	  <fieldset>
-	    <input type="hidden" name="SubDir" value="private/%%HTML:path%%" class="subdir" />
+	<p class="shareLink">
+	  <span class='st_facebook_large' displayText='Facebook'></span>
+	  <span class='st_twitter_large' displayText='Tweet'></span>
+	  <span class='st_googleplus_large' displayText='Google +'></span>
+	  <span class='st_linkedin_large' displayText='LinkedIn'></span>
+	  <a rel="lightbox" class="qrcode" href="/cgi-bin/QRreferer.cgi?path=%%URL:referer%%&amp;file=qrcode.png" ><img src="/SkinFiles//ProntoDrive/qr_icon.png" alt="QrCode" /></a>
+	  <script type="text/javascript">stLight.options({publisher: "a1c5aa21-4119-4ea2-91b7-9678fe60f5ef", doNotHash: true, doNotCopy: true, hashAddressBar: true});</script>
+	</p>
+	<p class="shareLink">
+	  <label>Share link:</label>
+	  <textarea name="link" id="" rows="2" cols="100" onClick="this.select();" readonly="readonly">%%referer%%</textarea>
+	</p>
 	    <!--%%IF Alerts[0]-->
 	    <ul id="alerts">
 	      <!--%%FOREACH alert in Alerts-->
@@ -59,8 +69,8 @@
 		  <a href="?path=%%HTML:crumb[].path%%">%%HTML:crumb[].name%%</a>
 		  <em class="crumbs-separator">&gt;&nbsp;</em>
 		  <!--%%ENDIF-->
+		  <!--%%ENDFOR crumb-->
 		</span>
-		<!--%%ENDFOR crumb-->
 	      </li>
 	      <!--%%ENDIF-->
 	      <!--%%FOREACH folder in folders-->
@@ -90,8 +100,6 @@
 	      </li>
 	    </ul>
 	    <!--%%ENDIF-->
-	  </fieldset>
-	</form>
       </section>
        <div id="overlay"></div>
       <div class="push"></div>

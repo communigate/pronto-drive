@@ -80,6 +80,7 @@
 #cerabox .cerabox-title span { display: none; color: #fff; }
 
 #cerabox .cerabox-title {
+                          display: none !important;
 	z-index: 1102;
 	position: absolute;
 	bottom: 0;

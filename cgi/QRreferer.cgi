@@ -49,6 +49,9 @@ my $versions = {
 };
 my $version = 1;
 my $text = $ENV{HTTP_REFERER};
+if ($q->param("path")) {
+  $text = $q->param("path");
+}
 
 {
     use bytes;

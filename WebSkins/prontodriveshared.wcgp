@@ -32,6 +32,7 @@ entry sysEntry is
          sharedFiles = GetAccountPreferences("SharedFiles");
          if isDictionary(sharedFiles.(fileKeys)) then
             expired = Number(sharedFiles.(fileKeys).LastUpdated) - Number(UnixTimestamp(GMTTime())) + Number(sharedFiles.(fileKeys).expires);
+            syslog(expired);
             if expired > 0 then
                theSet = newDictionary();
                theSet.account = account;
@@ -89,8 +90,21 @@ entry sysEntry is
                   end if;
                end loop;
                //SetHTTPResponseData(ObjectToJSON(theSet));
+               theSet.referer = String(GetHTTPField("Schema")) + "://" + String(GetHTTPField("Host"));
+               if String(GetHTTPField("Port")) != "80" || String(GetHTTPField("Port")) != "443" then
+                  theSet.referer = theSet.referer + ":" + String(GetHTTPField("Port"));
+               end if;
+               theSet.referer = theSet.referer + String(GetHTTPField(""));
                ProcessWSSP("prontodriveshared",theSet);
             else
+               // Perform some actions for expired sessions
+               fileArray = sharedFiles.(fileKeys).file;
+               for i = 0 while i < Length(fileArray) by i += 1 loop
+                  result =  prontodrive::deleteSharePass("private" + fileArray[i], fileKeys);
+               end loop;
+               syslog(fileKeys);
+               sharedFiles.(fileKeys) = null;
+               result = SetAccountPreferences(sharedFiles,"SharedFiles");
             end if;
          else
          end if;

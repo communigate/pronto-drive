@@ -329,6 +329,7 @@ body.js section.main ol#fileList {
                                    }
 p.header {
            border-bottom: 1px solid #bbbbbb;
+           overflow: hidden;
            }
 p.header span {
                 font-weight: bold;
