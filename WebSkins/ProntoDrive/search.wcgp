@@ -1,13 +1,18 @@
-// ============================================= //
-//                   List files                  //
-//                                               //
-// Version 1.0                                   //
-// Anton Katsarov <anton@webface.bg>             //
-// ============================================= //
-//
-// Description:
-//  Lists Accounts files and folders
-//
+/*
+
+  Copyright 2013 Anton Katsarov <anton@webface.bg>
+
+  Distributed under the MIT License.
+
+  See accompanying file COPYING or copy at
+  http://opensource.org/licenses/MIT
+
+*/
+/*
+  Descrition:
+
+  The search engine for files and folders
+*/
 
 function sizeReadable(size, type) forward;
 function dateReadable(theDate) forward;

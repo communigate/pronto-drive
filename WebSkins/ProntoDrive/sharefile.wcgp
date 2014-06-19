@@ -1,13 +1,18 @@
-// ============================================= //
-//                   List files                  //
-//                                               //
-// Version 1.0                                   //
-// Anton Katsarov <anton@webface.bg>             //
-// ============================================= //
-//
-// Description:
-//  Lists Accounts files and folders
-//
+/*
+
+  Copyright 2013 Anton Katsarov <anton@webface.bg>
+
+  Distributed under the MIT License.
+
+  See accompanying file COPYING or copy at
+  http://opensource.org/licenses/MIT
+
+*/
+/*
+  Descrition:
+
+  Enables sharing of selected files and folders
+*/
 
 function list(path) external;
 function UnixTimestamp(dateTime) external;

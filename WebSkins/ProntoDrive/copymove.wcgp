@@ -1,13 +1,18 @@
-// ============================================= //
-//                Copy/Move files                //
-//                                               //
-// Version 1.0                                   //
-// Anton Katsarov <anton@webface.bg>             //
-// ============================================= //
-//
-// Description:
-//  Lists Accounts files and folders
-//
+/*
+
+  Copyright 2014 Anton Katsarov <anton@webface.bg>
+
+  Distributed under the MIT License.
+
+  See accompanying file COPYING or copy at
+  http://opensource.org/licenses/MIT
+
+*/
+/*
+  Descrition:
+
+  Copys and moves files/folders
+*/
 
 function copyFile(source, dest) forward;
 function copyFolder(source, dest) forward;

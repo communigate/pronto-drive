@@ -1,3 +1,19 @@
+/*
+
+  Copyright 2013 Anton Katsarov <anton@webface.bg>
+
+  Distributed under the MIT License.
+
+  See accompanying file COPYING or copy at
+  http://opensource.org/licenses/MIT
+
+*/
+/*
+  Descrition:
+
+  The main JS of Pronto Drive
+*/
+
 var LAST_SELECTED = null;
 var TIMEOUT = 840000; // 14m
 var TIMEOUT_ID;
@@ -64,8 +80,6 @@ window.addEvent('domready', function () {
     }
     $('uploadForm').addEvent("submit", function (e) {
 	if ('FormData' in window) {
-	    // e.preventDefault();
-	    // rowReq.appendFiles(inputFiles.getFiles(), String($$("input.subdir")[0].get("value")).replace("private/", ""));
 	    rowReq.appendFiles(inputFiles.getFiles(), String($$("input.subdir")[0].get("value")));
  	    inputFiles._files = [];
 	} else {
@@ -336,10 +350,10 @@ var buildFileList = function (object, container, preservePath) {
 	    var check = new Element("span", {"class": "check"}).inject(li);
 	    var name = new Element("span", {"class": "name"}).inject(li);
  	    var link = new Element("a", {"href": "importSubscription.wcgp"});
-	    link.addEvent("click", function (e) {
-		// e.preventDefault();
-		// reloadContent();
-	    });
+	    // link.addEvent("click", function (e) {
+	    // 	// e.preventDefault();
+	    // 	// reloadContent();
+	    // });
 	    var add = new Element("span", {"class": "add"}).inject(li);
 
 	    linkText = "Add Subscription";

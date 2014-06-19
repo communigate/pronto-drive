@@ -1,10 +1,18 @@
-// ============================================= //
-//                   Just update subscriptions   //
-//                                               //
-// Version 1.0                                   //
-// Anton Katsarov <anton@webface.bg>             //
-// ============================================= //
-//
+/*
+
+  Copyright 2013 Anton Katsarov <anton@webface.bg>
+
+  Distributed under the MIT License.
+
+  See accompanying file COPYING or copy at
+  http://opensource.org/licenses/MIT
+
+*/
+/*
+  Descrition:
+
+  Updates file's subscription
+*/
 
 function list() external;
 function getSubscriptions() forward;

@@ -1,13 +1,18 @@
-// ============================================= //
-//                   User Access                 //
-//                                               //
-// Version 1.0                                   //
-// Anton Katsarov <anton@webface.bg>             //
-// ============================================= //
-//
-// Description:
-//  Grants user access to folder
-//
+/*
+
+  Copyright 2013 Anton Katsarov <anton@webface.bg>
+
+  Distributed under the MIT License.
+
+  See accompanying file COPYING or copy at
+  http://opensource.org/licenses/MIT
+
+*/
+/*
+  Descrition:
+
+  Grants user access to a specific folder.
+*/
 
 function parse(xml) forward;
 function sessionExists(s) forward;

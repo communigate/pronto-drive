@@ -1,3 +1,18 @@
+/*
+
+  Copyright 2014 Anton Katsarov <anton@webface.bg>
+
+  Distributed under the MIT License.
+
+  See accompanying file COPYING or copy at
+  http://opensource.org/licenses/MIT
+
+*/
+/*
+  Descrition:
+
+  Some commonly used functions in Pronto Drive.
+*/
 
 
 function addSharePass(filepath, pass) is
