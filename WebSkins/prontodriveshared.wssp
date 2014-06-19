@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="%%STRING("LanguageCode")%%">
+  <head>
+    <title>Pronto!Drive</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/SkinFiles//ProntoDrive/screen.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/SkinFiles//ProntoDrive/cerabox.packed.css" type="text/css" media="screen" />
+    <link rel="icon" href="/SkinFiles//ProntoDrive/favicon.ico" />
+    <!--[if IE]>
+	<script language="javascript"  type="text/javascript" src="/SkinFiles//ProntoDrive/modernizr.js" ></script>
+	<![endif]-->
+    <script language="javascript"  type="text/javascript" src="/SkinFiles//ProntoDrive/mootools.js" ></script>
+    <script language="javascript"  type="text/javascript" src="/SkinFiles//ProntoDrive/mootools-more.js" ></script>
+    <script language="javascript"  type="text/javascript" src="/SkinFiles//ProntoDrive/cerabox.min.js" ></script>
+    <script language="javascript"  type="text/javascript" src="/SkinFiles//ProntoDrive/share.js" ></script>
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2, user-scalable=yes"/>
+  </head>
+  <body class="share">
+    <div class="wrapper">
+      <header>
+	<h1>Pronto!Drive</h1>
+      </header>
+      <section class="main" id="mainSection">
+	<form method="POST" id="updateForm" action="">
+	  <fieldset>
+	    <input type="hidden" name="SubDir" value="private/%%HTML:path%%" class="subdir" />
+	    <!--%%IF Alerts[0]-->
+	    <ul id="alerts">
+	      <!--%%FOREACH alert in Alerts-->
+	      <li>
+		<p class="message">
+		  Other user has shared the following folder with you: <strong>%%HTML:alert[]%%</strong>
+		</p>
+		<p class="actions">
+		  <a href="updateSubscription.wcgp?action=accept&folder=%%URL:alert[]%%">Accept</a> or <a href="updateSubscription.wcgp?action=discard&folder=%%URL:alert[]%%">Discard</a>
+		</p>
+	      </li>
+	      <!--%%ENDFOR alert-->
+	    </ul>
+	    <!--%%ENDIF-->
+	    <p class="header" id="header">
+	      <span class="check">&nbsp;</span>
+	      <span class="name">Name</span>
+	      <span class="modified">Modified</span>
+	      <span class="size">Size</span>
+	    </p>
+	    <ol id="fileList">
+	      <!--%%IF EXISTS(Crumbs)-->
+	      <li class="up" id="up">
+		<span class="name">
+		  <!--%%FOREACH crumb in Crumbs-->
+		  <!--%%IF EQUALS(crumb[].name AND "")-->
+		  <a href="?">Home</a>
+		  <em class="crumbs-separator">&gt;&nbsp;</em>
+		  <!--%%ELIF NOT(EXISTS(crumb[].path))-->
+		  <em class="nolink">%%HTML:crumb[].name%%</em>
+		  <!--%%ELSE-->
+		  <a href="?path=%%HTML:crumb[].path%%">%%HTML:crumb[].name%%</a>
+		  <em class="crumbs-separator">&gt;&nbsp;</em>
+		  <!--%%ENDIF-->
+		</span>
+		<!--%%ENDFOR crumb-->
+	      </li>
+	      <!--%%ENDIF-->
+	      <!--%%FOREACH folder in folders-->
+	      <li class="folder">
+		<span class="name"><a href="?path=%%HTML:folder[].path%%/%%HTML:folder[].Name%%">%%HTML:folder[].Name%%</a></span>
+		<span class="modified">%%HTML:folder[].Modified%%</span>
+	      </li>
+	      <!--%%ENDFOR folder-->
+	      <!--%%FOREACH file in Files-->
+	      <li class="file file-%%HTML:file[].Ext%%">
+		<span class="name"><a href="/~%%HTML:account%%/protected%%HTML:file[].path%%/pwd/%%HTML:key%%%%HTML:file[].location%%/%%HTML:file[].Name%%">%%HTML:file[].Name%%</a></span>
+		<span class="modified">%%HTML:file[].Modified%%</span>
+		<span class="size">%%HTML:file[].Size%%</span>
+	      </li>
+	      <!--%%ENDFOR file-->
+	      <!--%%FOREACH folder in Subscriptions-->
+	      <li class="folder-shared">
+		<span class="name"><a href="?path=%%HTML:folder[]%%">%%HTML:folder[]%%</a></span>
+		<span class="remove"><a href="updateSubscription.wcgp?action=remove&folder=%%URL:folder[]%%">Remove</a></span>
+	      </li>
+	      <!--%%ENDFOR folder-->
+	    </ol>
+	    <!--%%IF notFound-->
+	    <ul id="alerts">
+	      <li>
+		<p>Folder not found or you do not have access permissions.</p>
+	      </li>
+	    </ul>
+	    <!--%%ENDIF-->
+	  </fieldset>
+	</form>
+      </section>
+       <div id="overlay"></div>
+      <div class="push"></div>
+    </div>
+    <footer class="footer">
+      <div class="inner">
+	<p>Pronto!Drive v1.0</p>
+      </div>
+    </footer>
+    <div id="progressbox">
+      <p id="progressbox-files">
+	Uploading file: <span id="progressbox-number"></span>/<span id="progressbox-total"></span>
+	(<span id="progressbox-filename"></span>)
+      </p>
+      <span id="progressbox-wrap"><span id="progressbox-progress"></span></span>
+    </div>
+    <div id="toast"></div>
+    <ul id="contextmenu">
+      <li><a href="#sharelink" class="sharelink">Share link</a></li>
+      <li><a href="#createfolder" class="createfolder">Create folder</a></li>
+      <li><a href="#copy" class="copy">Copy</a></li>
+      <li><a href="#move" class="move">Move</a></li>
+      <li><a href="#rename" class="rename">Rename</a></li>
+      <li><a href="#delete" class="delete">Delete</a></li>
+    </ul>
+  </body>
+</html>

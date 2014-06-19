@@ -1,0 +1,97 @@
+// ============================================= //
+//                Share List files               //
+//                                               //
+// Version 1.0                                   //
+// Anton Katsarov <anton@webface.bg>             //
+// ============================================= //
+//
+// Description:
+//  Lists Accounts shared files and folders
+//
+
+
+function split(devider, str) external;
+function UnixTimestamp(dateTime) external;
+function prontodrive::sizeReadable(size, type) external;
+function prontodrive::dateReadable(theDate) external;
+function prontodrive::deleteSharePass(filepath, pass) external;
+
+entry sysEntry is
+   params = split("/",GetHTTPField(""));
+   path = GetHTTPParameter("path",0);
+   if isString(params[3]) && isString(params[4]) then
+      account = params[3];
+      fileKeys = params[4];
+      SetHTTPResponseType("text","html");
+      impersonateResulr = Impersonate(account);
+      if impersonateResulr == null then
+         sharedFiles = GetAccountPreferences("SharedFiles");
+         if isDictionary(sharedFiles.(fileKeys)) then
+            expired = Number(sharedFiles.(fileKeys).LastUpdated) - Number(UnixTimestamp(GMTTime())) + Number(sharedFiles.(fileKeys).expires);
+            if expired > 0 then
+               theSet = newDictionary();
+               theSet.account = account;
+               theSet.key = fileKeys;
+               theSet.files = newDictionary();
+               theSet.folders = newDictionary();
+               fileArray = sharedFiles.(fileKeys).file;
+               basepath = Substring(fileArray[0], 0, FindSubstring(fileArray[0],"/",-1));
+               listpath = basepath;
+               if isString(path) then
+                  listpath = listpath + path;
+                  crumbs = split("/",path);
+                  theSet.Crumbs = newArray();
+                  path = "";
+                  for i = 0  while i < Length(crumbs) by i+= 1 loop
+                      crumb = newDictionary();
+                      if i < Length(crumbs) - 1 then
+                         if i == 0 then
+                            crumb.path = path + crumbs[i];
+                         else
+                            crumb.path = path + "/" + crumbs[i];
+                         end if;
+                         path = crumb.path;
+                      end if;
+                      crumb.name = crumbs[i];
+                      theset.Crumbs.addElement(crumb);
+                  end loop;
+               end if;
+               folderList = ListStorageFiles("private" + "/" + listpath);
+               for i = 0  while i < Length(folderList) by i+= 1 loop
+                  found = null;
+                  for j = 0  while j < Length(fileArray) by j+= 1 loop
+                     if FindSubstring(listpath + "/" + folderList[i],fileArray[j]) == 0 then
+                        found = "YES";
+                     end if;
+                     exitif found;
+                  end loop;
+                  if found then
+                     if isNumber(folderList.(folderList[i]).STFileSize) then
+                        theSet.files.(folderList[i]) = newDictionary();
+                        theSet.files.(folderList[i]).Name = folderList[i];
+                        theSet.files.(folderList[i]).path = basepath;
+                        syslog(listpath);
+                        syslog(basepath);
+                        syslog(Substring(listpath, Length(basepath), Length(listpath)));
+                        theSet.files.(folderList[i]).location = Substring(listpath, Length(basepath), Length(listpath));
+                        theSet.files.(folderList[i]).Size = prontodrive::sizeReadable(folderList.(folderList[i]).STFileSize, "B");
+                        theSet.files.(folderList[i]).Modified = prontodrive::dateReadable(folderList.(folderList[i]).STModified);
+                     else
+                        theSet.folders.(folderList[i]) = newDictionary();
+                        theSet.folders.(folderList[i]).Name = folderList[i];
+                        theSet.folders.(folderList[i]).path = Substring(listpath, Length(basepath), Length(listpath));
+                        // theSet.folders.(folderList[i]).path = Substring(folderList[i], 0, FindSubstring(folderList[i],"/",-1));
+                     end if;
+                  end if;
+               end loop;
+               //SetHTTPResponseData(ObjectToJSON(theSet));
+               ProcessWSSP("prontodriveshared",theSet);
+            else
+            end if;
+         else
+         end if;
+      else
+      end if;
+   end if;
+end entry;
+

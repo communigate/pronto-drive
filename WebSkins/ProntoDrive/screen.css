@@ -144,6 +144,9 @@ section.main fieldset ol {
                            padding: 10px;
                            width: 102%;
                            }
+body.share section.main fieldset ol {
+                                      left: 0;
+                                      }
 section.main fieldset .header {
                                 display: block;
                                 left: -29px;

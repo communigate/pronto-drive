@@ -1,0 +1,5 @@
+//
+
+function UnixTimestamp(dateTime) is
+    return DateNumber(dateTime)*86400 + TimeOfDay(dateTime);
+end function;

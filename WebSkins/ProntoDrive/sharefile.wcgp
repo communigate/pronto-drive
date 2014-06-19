@@ -10,6 +10,8 @@
 //
 
 function list(path) external;
+function UnixTimestamp(dateTime) external;
+function prontodrive::addSharePass(filepath, pass) external;
 
 entry main is
   account = MyEmail();
@@ -39,15 +41,16 @@ entry main is
       downloadHash = CryDigest("MD5", Base64Decode(Base64Encode(account + query)));
       downloadHash = ObjectToJSON(Convert(downloadHash, "hex"));
       downloadHash = Substring(String(downloadHash), 1, Length(downloadHash) - 4);
-      time = LocalTime();
-      theTime = String(Year(time)) + "-" + String(MonthNum(time)) + "-" + String(MonthDay(time)) + " " + String(TimeOfDay(time));
       sharedFiles.(downloadHash) = NewDictionary();
       sharedFiles.(downloadHash).file = files;
       sharedFiles.(downloadHash).expires = sharedFilesExpire;
-      sharedFiles.(downloadHash).LastUpdated = theTime;
+      sharedFiles.(downloadHash).LastUpdated = UnixTimestamp(GMTTime());
       status = SetAccountPreferences(sharedFiles,"SharedFiles");
+      for i = 0  while i < Length(files) by i+= 1 loop
+         result = prontodrive::addSharePass("private" + files[i], downloadHash);
+      end loop;
       SetHTTPResponseCode(301);
-      AddHTTPResponseField("Location","/cgi-bin/ProntoDriveDownload.pl/" + account + "/" + downloadHash);
+      AddHTTPResponseField("Location","/sys/ProntoDriveShared.wcgp/" + account + "/" + downloadHash);
       //SetHTTPResponseData(ObjectToJSON(sharedfiles));
     else
        empty = NewDictionary();
