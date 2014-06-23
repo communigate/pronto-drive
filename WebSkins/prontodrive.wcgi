@@ -57,6 +57,7 @@ function sizeReadable(size, type) is
   if IsNumber(size) then
     if size > 1024 then
       localType = "B";
+      mult = 1;
       if type == "B" then
         localType = "kB";
       elif type == "kB" then
@@ -66,14 +67,14 @@ function sizeReadable(size, type) is
       elif type == "GB" then
         localType = "TB";
       end if;
-      size = Number(sizeReadable(size/1024, localType));
-      return String(size) + localType;
+      size = sizeReadable(size/1024, localType);
+      return size;
     else
-    return String(size) + type;
+      return String(size) + type;
     end if;
   else
     return "O" + type;
-  end if;
+   end if;
 end function;
 
 function dateReadable(theDate) is
