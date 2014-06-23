@@ -12,7 +12,6 @@
     <script language="javascript"  type="text/javascript" src="/SkinFiles//ProntoDrive/mootools.js" ></script>
     <script language="javascript"  type="text/javascript" src="/SkinFiles//ProntoDrive/mootools-more.js" ></script>
     <script language="javascript"  type="text/javascript" src="/SkinFiles//ProntoDrive/cerabox.min.js" ></script>
-    <!-- <script language="javascript"  type="text/javascript" src="/SkinFiles//ProntoDrive/share.js" ></script> -->
     <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
     <meta name="HandheldFriendly" content="true"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2, user-scalable=yes"/>
@@ -21,6 +20,7 @@
     <div class="wrapper">
       <header>
 	<h1>Pronto!Drive</h1>
+	<a href="/sys/prontodrivedownloadzip.wcgp/%%URL:account%%/%%key%%?a%%CURRENTTIME()%%" title="Download as ZIP">Download as ZIP</a>
       </header>
       <section class="main" id="mainSection">
 	<p class="shareLink">

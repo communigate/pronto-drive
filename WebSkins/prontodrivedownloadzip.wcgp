@@ -1,0 +1,52 @@
+/*
+
+  Copyright 2014 Anton Katsarov <anton@webface.bg>
+
+  Distributed under the MIT License.
+
+  See accompanying file COPYING or copy at
+  http://opensource.org/licenses/MIT
+
+*/
+/*
+  Descrition:
+
+  Creates a simple webuser session for listing shared files.
+*/
+
+function split(devider, str) external;
+function UnixTimestamp(dateTime) external;
+function prontodrive::deleteSharePass(filepath, pass) external;
+
+entry sysEntry is
+   params = split("/",GetHTTPField(""));
+   path = GetHTTPParameter("path",0);
+   if isString(params[3]) && isString(params[4]) then
+      account = params[3];
+      fileKeys = params[4];
+      SetHTTPResponseType("text","html");
+         cliRes = ExecuteCLI("GETACCOUNTPREFS " + account);
+         prefs = Vars().executeCLIResult;
+         sharedFiles = prefs.SharedFiles;
+         if isDictionary(sharedFiles.(fileKeys)) then
+            expired = Number(sharedFiles.(fileKeys).LastUpdated) - Number(UnixTimestamp(GMTTime())) + Number(sharedFiles.(fileKeys).expires);
+            syslog(expired);
+            if expired > 0 then
+               cliResult = ExecuteCLI("CREATEWEBUSERSESSION postmaster ADDRESS 127.0.0.1");
+               SetHTTPResponseCode(307);
+               AddHTTPResponseField("Location", "/cgi-bin/ProntoDriveZip.cgi/" + account + "/" + fileKeys + "/" + Vars().executeCLIResult);
+            else
+               // Perform some actions for expired sessions
+               fileArray = sharedFiles.(fileKeys).file;
+               for i = 0 while i < Length(fileArray) by i += 1 loop
+                  result =  prontodrive::deleteSharePass("private" + fileArray[i], fileKeys);
+               end loop;
+               syslog(fileKeys);
+               sharedFiles.(fileKeys) = null;
+               result = SetAccountPreferences(sharedFiles,"SharedFiles");
+            end if;
+      else
+      end if;
+   end if;
+end entry;
+
