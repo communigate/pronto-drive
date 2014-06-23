@@ -54,10 +54,10 @@ function deleteSharePass(filepath, pass) is
 end function;
 
 function sizeReadable(size, type) is
+if type == "B" then
   if IsNumber(size) then
     if size > 1024 then
       localType = "B";
-      mult = 1;
       if type == "B" then
         localType = "kB";
       elif type == "kB" then
