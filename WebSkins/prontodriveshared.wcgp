@@ -14,14 +14,14 @@
   Displays already shared files (share link)
 */
 
-function split(devider, str) external;
-function UnixTimestamp(dateTime) external;
+function prontodrive::split(devider, str) external;
+function prontodrive::UnixTimestamp(dateTime) external;
 function prontodrive::sizeReadable(size, type) external;
 function prontodrive::dateReadable(theDate) external;
 function prontodrive::deleteSharePass(filepath, pass) external;
 
 entry sysEntry is
-   params = split("/",GetHTTPField(""));
+   params = prontodrive::split("/",GetHTTPField(""));
    path = GetHTTPParameter("path",0);
    if isString(params[3]) && isString(params[4]) then
       account = params[3];
@@ -31,7 +31,7 @@ entry sysEntry is
       if impersonateResulr == null then
          sharedFiles = GetAccountPreferences("SharedFiles");
          if isDictionary(sharedFiles.(fileKeys)) then
-            expired = Number(sharedFiles.(fileKeys).LastUpdated) - Number(UnixTimestamp(GMTTime())) + Number(sharedFiles.(fileKeys).expires);
+            expired = Number(sharedFiles.(fileKeys).LastUpdated) - Number(prontodrive::UnixTimestamp(GMTTime())) + Number(sharedFiles.(fileKeys).expires);
             syslog(expired);
             if expired > 0 then
                theSet = newDictionary();
@@ -44,7 +44,7 @@ entry sysEntry is
                listpath = basepath;
                if isString(path) then
                   listpath = listpath + path;
-                  crumbs = split("/",path);
+                  crumbs = prontodrive::split("/",path);
                   theSet.Crumbs = newArray();
                   path = "";
                   for i = 0  while i < Length(crumbs) by i+= 1 loop

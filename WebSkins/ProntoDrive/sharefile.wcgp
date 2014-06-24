@@ -15,7 +15,7 @@
 */
 
 function list(path) external;
-function UnixTimestamp(dateTime) external;
+function prontodrive::UnixTimestamp(dateTime) external;
 function prontodrive::addSharePass(filepath, pass) external;
 
 entry main is
@@ -49,7 +49,7 @@ entry main is
       sharedFiles.(downloadHash) = NewDictionary();
       sharedFiles.(downloadHash).file = files;
       sharedFiles.(downloadHash).expires = sharedFilesExpire;
-      sharedFiles.(downloadHash).LastUpdated = UnixTimestamp(GMTTime());
+      sharedFiles.(downloadHash).LastUpdated = prontodrive::UnixTimestamp(GMTTime());
       status = SetAccountPreferences(sharedFiles,"SharedFiles");
       for i = 0  while i < Length(files) by i+= 1 loop
          result = prontodrive::addSharePass("private" + files[i], downloadHash);
