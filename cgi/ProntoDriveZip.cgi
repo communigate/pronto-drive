@@ -1,7 +1,21 @@
 #!/usr/bin/perl
+#
+#  Copyright 2014 Anton Katsarov <anton@webface.bg>
+#
+#  Distributed under the MIT License.
+#
+#  See accompanying file COPYING or copy at
+#  http://opensource.org/licenses/MIT
+#
+#
+#
+#  Descrition:
+#
+#  Serves a ZIP stream/archive of the shared files
+#
 
-# use strict;
-# use warnings;
+use strict;
+use warnings;
 
 # Package Defs
 

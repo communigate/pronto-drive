@@ -1,4 +1,18 @@
 #!/usr/bin/perl
+#
+#  Copyright 2014 Anton Katsarov <anton@webface.bg>
+#
+#  Distributed under the MIT License.
+#
+#  See accompanying file COPYING or copy at
+#  http://opensource.org/licenses/MIT
+#
+#
+#
+#  Descrition:
+#
+#  Prints a QR code of the referer or parameter string
+#
 
 use CGI;
 use GD::Barcode::QRcode;
