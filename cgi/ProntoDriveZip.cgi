@@ -21,7 +21,6 @@ use warnings;
 
 package LocalCLI;
 use IO::Socket::INET;
-use IO::Compress::Zip 2.040 qw(:all);
 
 $CGP::TIMEOUT = 60*5-5;		# 5 minutes timeout
 
@@ -440,6 +439,7 @@ sub GetAccountPrefs {
 package main;
 
 use CGI;
+use IO::Compress::Zip 2.040 qw(:all);
 
 my $q = new CGI();
 my (undef, $account, $key, $sid) = split '/', $q->path_info();
@@ -457,7 +457,6 @@ my $prefs =  $cli->GetAccountPrefs($account);
 
 
 if (defined $prefs->{SharedFiles}->{$key}) {
-  use Data::Dumper;
   $prefs->{SharedFiles}->{$key}->{LastUpdated} =~ s/\D//g;
   my $expired = $prefs->{SharedFiles}->{$key}->{LastUpdated} + $prefs->{SharedFiles}->{$key}->{expires} - time();
   if ($expired > 0) {
@@ -470,7 +469,7 @@ if (defined $prefs->{SharedFiles}->{$key}) {
     IO::Compress::Zip::zip ([@files] => '-',
 			    FilterContainer => sub {
 			      # Put some delay for performance reasons.
-			      # select(undef, undef, undef, 0.025);
+			      select(undef, undef, undef, 0.025);
 			      # Chunk the output
 			      my $length = length($_);
 			      $_ = sprintf("%x", $length) . "\r\n" . $_ . "\r\n";
