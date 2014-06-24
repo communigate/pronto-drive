@@ -81,6 +81,12 @@ entry sysEntry is
                         theSet.files.(folderList[i]).location = Substring(listpath, Length(basepath), Length(listpath));
                         theSet.files.(folderList[i]).Size = prontodrive::sizeReadable(folderList.(folderList[i]).STFileSize, "B");
                         theSet.files.(folderList[i]).Modified = prontodrive::dateReadable(folderList.(folderList[i]).STModified);
+                        ext = String(FindRegEx(ToLowerCase(folderList[i]),"[.][a-z0-9]+$"));
+                        theSet.files.(folderList[i]).Ext = Substring(ext, 2, Length(ext) - 3);
+                        ext = ToLowerCase(theSet.files.(folderList[i]).Ext);
+                        if ext == "jpg" || ext == "png" || ext == "gif" || ext == "bmp" then
+                           theSet.files.(folderList[i]).lightbox = "YES";
+                        end if;
                      else
                         theSet.folders.(folderList[i]) = newDictionary();
                         theSet.folders.(folderList[i]).Name = folderList[i];

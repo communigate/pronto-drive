@@ -28,7 +28,7 @@
 	  <span class='st_twitter_large' displayText='Tweet'></span>
 	  <span class='st_googleplus_large' displayText='Google +'></span>
 	  <span class='st_linkedin_large' displayText='LinkedIn'></span>
-	  <a rel="lightbox" class="qrcode" href="/cgi-bin/QRreferer.cgi?path=%%URL:referer%%&amp;file=qrcode.png" ><img src="/SkinFiles//ProntoDrive/qr_icon.png" alt="QrCode" /></a>
+	  <a rel="lightbox-qrcode" class="qrcode" href="/cgi-bin/QRreferer.cgi?path=%%URL:referer%%&amp;file=qrcode.png" ><img src="/SkinFiles//ProntoDrive/qr_icon.png" alt="QrCode" /></a>
 	  <script type="text/javascript">stLight.options({publisher: "a1c5aa21-4119-4ea2-91b7-9678fe60f5ef", doNotHash: true, doNotCopy: true, hashAddressBar: true});</script>
 	</p>
 	<p class="shareLink">
@@ -81,7 +81,8 @@
 	      <!--%%ENDFOR folder-->
 	      <!--%%FOREACH file in Files-->
 	      <li class="file file-%%HTML:file[].Ext%%">
-		<span class="name"><a href="/~%%HTML:account%%/protected%%HTML:file[].path%%/pwd/%%HTML:key%%%%HTML:file[].location%%/%%HTML:file[].Name%%">%%HTML:file[].Name%%</a></span>
+		<span class="name"><a<!--%%IF file[].lightbox--> rel="lightbox-gallery"<!--%%ENDIF--> href="/~%%HTML:account%%/protected%%HTML:file[].path%%/pwd/%%HTML:key%%%%HTML:file[].location%%/%%HTML:file[].Name%%">%%HTML:file[].Name%%</a></span>
+		<span class="usershare"><a href="/~%%HTML:account%%/protected%%HTML:file[].path%%/pwd/%%HTML:key%%%%HTML:file[].location%%/%%HTML:file[].Name%%" class="download">Download</a></span>
 		<span class="modified">%%HTML:file[].Modified%%</span>
 		<span class="size">%%HTML:file[].Size%%</span>
 	      </li>
