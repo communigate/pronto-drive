@@ -20,7 +20,7 @@
     <div class="wrapper">
       <header>
 	<h1>Pronto!Drive</h1>
-	<a href="/sys/prontodrivedownloadzip.wcgp/%%URL:account%%/%%key%%?a%%CURRENTTIME()%%" title="Download as ZIP">Download as ZIP</a>
+	<a href="/sys/prontodrivedownloadzip.wcgp/%%URL:account%%/%%key%%?a%%CURRENTTIME()%%" title="Download as ZIP" class="downloadzip">Download as ZIP</a>
       </header>
       <section class="main" id="mainSection">
 	<p class="shareLink">

@@ -22,6 +22,7 @@ time, mark, audio, video {
                            font-size: 100%;
                            font: inherit;
                            vertical-align: baseline;
+                           outline: none;
                            }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
@@ -132,6 +133,16 @@ header .logout {
                  margin-right: 5px;
                  float: right;
                  }
+header .downloadzip {
+                      display: block;
+                      width: 32px;
+                      height: 32px;
+                      background: url(cloud_download.png) 0 0 no-repeat;
+                      float: right;
+                      overflow: hidden;
+                      text-indent: -3000px;
+                      margin-top: 3px;
+                      }
 section.main {
                overflow: hidden;
                position: relative;
