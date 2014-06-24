@@ -1,6 +1,0 @@
----
-default:
-  Premium:
-    all: 5
-  Standard:
-    all: -1
