@@ -51,7 +51,7 @@ then
 fi
 if [ `perl -MIO::Compress::Zip -e 1 2>&1 | wc -l` -ne "0" ]
 then
-    echo "!!! Please install perl module IO::Compress::Zip !!!";
+    echo "!!! Please install perl module IO::Compress::Zip with version at least 2.040 !!!";
 else
    VERSION=`perl -MIO::Compress::Base -e 'print $IO::Compress::Base::VERSION'`;
    vercomp "2.040" $VERSION;
