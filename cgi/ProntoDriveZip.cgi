@@ -433,7 +433,6 @@ sub GetAccountPrefs {
   $this->parseWords($this->getWords);
 }
 
-
 # Main program
 
 package main;
@@ -442,11 +441,12 @@ use CGI;
 use IO::Compress::Zip 2.040 qw(:all);
 
 my $q = new CGI();
+
 my (undef, $account, $key, $sid) = split '/', $q->path_info();
 
 my $cli = new LocalCLI( { PeerAddr => "127.0.0.1",
 			  PeerPort => '106',
-			  login => 'postmaster',
+			  login => $account,
 			  sid => $sid } );
 unless($cli) {
   print "Content-type: text/plain\n\n";
@@ -454,7 +454,6 @@ unless($cli) {
 }
 
 my $prefs =  $cli->GetAccountPrefs($account);
-
 
 if (defined $prefs->{SharedFiles}->{$key}) {
   $prefs->{SharedFiles}->{$key}->{LastUpdated} =~ s/\D//g;

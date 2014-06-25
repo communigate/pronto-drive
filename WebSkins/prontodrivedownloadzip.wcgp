@@ -32,7 +32,7 @@ entry sysEntry is
             expired = Number(sharedFiles.(fileKeys).LastUpdated) - Number(prontodrive::UnixTimestamp(GMTTime())) + Number(sharedFiles.(fileKeys).expires);
             syslog(expired);
             if expired > 0 then
-               cliResult = ExecuteCLI("CREATEWEBUSERSESSION postmaster ADDRESS 127.0.0.1");
+               cliResult = ExecuteCLI("CREATEWEBUSERSESSION " + account + " ADDRESS 127.0.0.1 SKIN ProntoDriveDownload");
                SetHTTPResponseCode(307);
                AddHTTPResponseField("Location", "/cgi-bin/ProntoDriveZip.cgi/" + account + "/" + fileKeys + "/" + Vars().executeCLIResult);
             else
