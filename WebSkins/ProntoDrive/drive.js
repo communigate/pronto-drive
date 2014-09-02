@@ -24,6 +24,11 @@ window.addEvent('domready', function () {
     var progress = new Progress();
     reloadContent();
     resetTimeout();
+    $("delete").addEvent("click", function(e) {
+	if (! confirm("Are you sure you want to delete these items?")) {
+	    e.preventDefault();
+	}
+    });
     new PopUper($("rename"), $("RenameName"), {
 	display: "inline",
 	onShow: function () {
