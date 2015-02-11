@@ -139,6 +139,15 @@ function getSessionById(s) is
 end function;
 
 function updateStorageFileAttr(account, filename, rules) is
+    // Find SubFolders and apply ACL
+    rc = ExecuteCLI("LISTSTORAGEFILES " + account + " PATH \"private" + filename + "\"");
+    files = Vars().executeCLIResult;
+    for i = 0  while i < Length(files) by i+= 1 loop
+      if ! IsNumber(files.(files[i]).STFileSize) then
+         result = updateStorageFileAttr(account, filename + "/" + files[i], rules);
+      end if;
+    end loop;
+    // Update ACL
     cmd = "UPDATESTORAGEFILEATTR " + account + " FILE \"private" + filename + "\" (" + rules + ")";
     rc = ExecuteCLI(cmd);
     if not IsString(rc) then
